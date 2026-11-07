@@ -1,0 +1,91 @@
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "http://localhost:20128",
+    "ANTHROPIC_AUTH_TOKEN": "sk-1d76b827cb56eaf0-e62c21-084de848",
+    "ANTHROPIC_API_KEY": "",
+    "ANTHROPIC_MODEL": "omniroute-free",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "omniroute-free",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "omniroute-free",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "omniroute-free",
+    "CLAUDE_CODE_MAX_CONTEXT_TOKENS": "131072",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"Remove-Item -Path '.\\\\jest.config.ts' -Force\")",
+      "Bash(powershell -Command \"npm ls ts-jest 2>&1 | Out-File -FilePath 'C:\\\\Users\\\\Jayakumar\\\\jobsearchai\\\\AI-Automation\\\\ls-output.txt'; Get-Content 'C:\\\\Users\\\\Jayakumar\\\\jobsearchai\\\\AI-Automation\\\\ls-output.txt'\")",
+      "Bash(powershell -Command \"npm install -D ts-jest @types/jest 2>&1 | Out-File -FilePath 'C:\\\\Users\\\\Jayakumar\\\\jobsearchai\\\\AI-Automation\\\\install-output.txt'; Get-Content 'C:\\\\Users\\\\Jayakumar\\\\jobsearchai\\\\AI-Automation\\\\install-output.txt'\")",
+      "Bash(powershell -Command \"npm install -D ts-jest --legacy-peer-deps 2>&1 | Out-File -FilePath 'C:\\\\Users\\\\Jayakumar\\\\jobsearchai\\\\AI-Automation\\\\install2-output.txt'; Get-Content 'C:\\\\Users\\\\Jayakumar\\\\jobsearchai\\\\AI-Automation\\\\install2-output.txt'\")"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "maxEffortLevel": "medium",
+  "security": {
+    "allow": [
+      "Skill(job-application-assistant)",
+      "Bash(bun run .agents/skills/jobbank-search/cli/src/cli.ts:*)",
+      "Bash(bun run .agents/skills/jobdanmark-search/cli/src/cli.ts:*)",
+      "Bash(bun run .agents/skills/jobindex-search/cli/src/cli.ts:*)",
+      "Bash(bun run .agents/skills/jobnet-search/cli/src/cli.ts:*)",
+      "Bash(bun run .agents/skills/linkedin-search/cli/src/cli.ts:*)",
+      "Bash(bun run .agents/skills/freehire-search/cli/src/cli.ts:*)",
+      "Bash(python salary_lookup.py:*)",
+      "Bash(python3 salary_lookup.py:*)",
+      "Bash(python tools/rank_state.py:*)",
+      "Bash(python3 tools/rank_state.py:*)",
+      "Bash(python tools/job_key.py:*)",
+      "Bash(python3 tools/job_key.py:*)",
+      "Bash(python tools/scrape_state.py:*)",
+      "Bash(python3 tools/scrape_state.py:*)",
+      "Bash(python tools/verify_pdf.py:*)",
+      "Bash(python3 tools/verify_pdf.py:*)",
+      "Bash(python tools/verify_layout.py:*)",
+      "Bash(python3 tools/verify_layout.py:*)",
+      "Bash(python tools/robots_check.py:*)",
+      "Bash(python3 tools/robots_check.py:*)",
+      "Bash(python tools/fetch_page.py:*)",
+      "Bash(python3 tools/fetch_page.py:*)",
+      "Bash(python tools/posting_guard.py:*)",
+      "Bash(python3 tools/posting_guard.py:*)"
+    ],
+    "ask": [
+      "Edit(.claude/settings.json)",
+      "Edit(.claude/settings.local.json)",
+      "Edit(.claude/skills/*/SKILL.md)",
+      "Edit(.claude/commands/*.md)",
+      "Edit(.claude/agents/**)",
+      "Edit(.github/**)",
+      "Edit(tools/security_guards.py)",
+      "Edit(tools/**)",
+      "Edit(.agents/**)",
+      "Edit(salary_lookup.py)",
+      "Bash(git push:*)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.gnupg/**)",
+      "Bash(curl -d:*)",
+      "Bash(curl --data:*)",
+      "Bash(curl -F:*)",
+      "Bash(curl --form:*)",
+      "Bash(curl -T:*)",
+      "Bash(curl --upload-file:*)",
+      "Bash(curl -X POST:*)",
+      "Bash(curl -X PUT:*)",
+      "Bash(curl -XPOST:*)",
+      "Bash(curl --request POST:*)",
+      "Bash(wget --post-data:*)",
+      "Bash(wget --post-file:*)",
+      "Bash(wget --method=POST:*)",
+      "Bash(scp:*)",
+      "Bash(sftp:*)",
+      "Bash(ssh:*)",
+      "Bash(nc:*)",
+      "Bash(ncat:*)",
+      "Bash(netcat:*)"
+    ]
+  }
+}
