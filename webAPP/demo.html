@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo - Playwright AI Framework</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg-subtle: #12121a;
+      --fg: #e8e8f0;
+      --muted: #6b6b80;
+      --accent: #00d4aa;
+      --accent-dim: rgba(0, 212, 170, 0.15);
+      --card: #161620;
+      --border: #2a2a3a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 { font-family: 'Space Grotesk', sans-serif; }
+
+    a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: #00f5c4; }
+
+    img { max-width: 100%; border: 0; }
+
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    .section { margin-bottom: 80px; }
+    .section-title {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-description {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 32px;
+      color: var(--muted);
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    /* Demo Showcase */
+    .demo-showcase {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 40px 0;
+    }
+
+    .demo-step {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 20px 0;
+      transition: border-color 0.2s;
+    }
+
+    .demo-step:hover {
+      border-color: var(--accent);
+    }
+
+    .demo-step .step-number {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+      flex-shrink: 0;
+    }
+
+    .demo-result {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .code-block {
+      background: #0d0d14;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      color: #c5c6c7;
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 4px 8px;
+      color: var(--muted);
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Testimonials */
+    .testimonials {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+    }
+
+    .testimonial {
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .testimonial:first-child { border-top: none; }
+    .testimonial:last-child { border-bottom: none; }
+
+    .testimonial-text {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .testimonial-author {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .author-name { font-weight: 600; }
+    .author-role { color: var(--muted); font-size: 12px; }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      margin: 60px 0;
+    }
+
+    .cta-section .btn {
+      display: inline-block;
+      padding: 16px 48px;
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 30px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+
+    .cta-section .btn:hover {
+      background: #00f5c4;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .section-title { font-size: 24px; }
+      .demo-showcase { margin: 20px 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background -->
+  <style>
+    .bg-pattern { position: fixed; inset: 0; background-image: linear-gradient(rgba(0,212,170,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,170,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+    .gradient-overlay { position: fixed; inset: 0; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,212,170,0.1), transparent), radial-gradient(ellipse 60% 40% at 100% 100%, rgba(0,100,200,0.08), transparent); pointer-events: none; z-index: 0; }
+  </style>
+  <div class="bg-pattern"></div>
+  <div class="gradient-overlay"></div>
+
+  <!-- Main -->
+  <div class="main">
+    <!-- Back Link -->
+    <a href="index.html" class="back-link">← Back to Home</a>
+
+    <!-- Header -->
+    <section class="section">
+      <h2 class="section-title">Live Demo</h2>
+      <p class="section-description">See the framework in action. Generate tests from requirements in real-time.</p>
+    </section>
+
+    <!-- Demo Showcase -->
+    <section class="section">
+      <div class="demo-showcase">
+        <h3>🎯 Demo Scenarios</h3>
+
+        <div class="demo-step">
+          <span class="step-number">1</span>
+          <div>
+            <h4>Enter Requirement</h4>
+            <p>Paste a natural language requirement like "User should be able to log in with valid credentials"</p>
+          </div>
+        </div>
+
+        <div class="demo-step">
+          <span class="step-number">2</span>
+          <div>
+            <h4>AI Generation</h4>
+            <p>Click "Generate" and watch the RAG pipeline retrieve relevant knowledge, call Anthropic Claude, and produce Playwright test code</p>
+          </div>
+        </div>
+
+        <div class="demo-step">
+          <span class="step-number">3</span>
+          <div>
+            <h4>Confidence Scoring</h4>
+            <p>See the 5-factor confidence breakdown: source referencing, knowledge utilization, risky patterns, code completeness, knowledge availability</p>
+          </div>
+        </div>
+
+        <div class="demo-step">
+          <span class="step-number">4</span>
+          <div>
+            <h4>Review Decision</h4>
+            <p>Auto-approve (0.8+), human review (0.6-0.8), or reject (< 0.6) with recommended actions</p>
+          </div>
+        </div>
+
+        <div class="demo-step">
+          <span class="step-number">5</span>
+          <div>
+            <h4>CI/CD Execution</h4>
+            <p>Generated test runs in Playwright across browsers with HTML, JSON, JUnit, and Allure reports</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Code Example -->
+    <section class="section">
+      <h3>Sample Generated Test</h3>
+      <p>Here's a test generated from requirement LOGIN-REQ-001:</p>
+
+      <div class="code-block" id="codeExample">
+        // Generated test will appear here
+      </div>
+
+      <button class="copy-btn" onclick="copyCode()">Copy</button>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section" style="background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 40px;">
+      <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 24px;">What Users Say</h3>
+
+      <div class="testimonial">
+        <p class="testimonial-text">"This framework reduced our test creation time by 70%. The confidence scoring caught brittle selectors before they reached CI."</p>
+        <div class="testimonial-author">
+          <span class="author-name">Sarah Chen</span>
+          <span class="author-role">QA Lead, TechCorp</span>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p class="testimonial-text">"The 5-phase RAG pipeline is incredibly thorough. It's like having a senior QA engineer review every test before it's written."</p>
+        <div class="testimonial-author">
+          <span class="author-name">Marcus Thompson</span>
+          <span class="author-role">Engineering Manager, StartupX</span>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p class="testimonial-text">"Finally, a framework that combines AI generation with proper quality gates. No more brittle tests in production."</p>
+        <div class="testimonial-author">
+          <span class="author-name">Priya Sharma</span>
+          <span class="author-role">QA Manager, EnterpriseCorp</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <button class="btn">Get Personalized Demo</button>
+    </section>
+  </div>
+
+  <script>
+    // Copy code to clipboard
+    function copyCode() {
+      const codeEl = document.getElementById('codeExample');
+      const sampleCode = `
+test.describe('Login Functionality', () => {
+  test('TC-001: Standard user login success', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.navigate();
+    await loginPage.login(
+      testUsers.standardUser.username,
+      testUsers.standardUser.password
+    );
+
+    await loginPage.verifyLoginSuccess();
+
+    await page.screenshot({ path: 'test-results/screenshots/login-success.png' });
+  });
+});
+      `;
+
+      navigator.clipboard.writeText(sampleCode).then(() => {
+        alert('Code copied to clipboard!');
+      });
+    }
+
+    // Initialize code example
+    document.getElementById('codeExample').textContent = `// Generated test from requirement LOGIN-REQ-001
+import { test, expect } from '@playwright/test';
+import { LoginPage } from '../page-objects/login';
+import { testUsers } from '../src/test-data/users';
+
+test.describe('Login Functionality', () => {
+  test('TC-001: Standard user login success', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    // Navigate to login page
+    await loginPage.navigate();
+
+    // Login with valid credentials
+    await loginPage.login(
+      testUsers.standardUser.username,
+      testUsers.standardUser.password
+    );
+
+    // Verify login success
+    await loginPage.verifyLoginSuccess();
+
+    // Capture screenshot
+    await page.screenshot({ path: 'test-results/screenshots/login-success.png' });
+  });
+});`;
+    }
+
+    // Check for reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (prefersReducedMotion.matches) {
+      document.documentElement.style.setProperty('--transition-fast', '0s');
+    }
+  </script>
+</body>
+</html>

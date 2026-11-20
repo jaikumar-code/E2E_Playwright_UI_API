@@ -9,7 +9,7 @@ import { LoginPage } from 'C:/Users/Jayakumar/E2E_Playwright_UI_API/src/page-obj
 import { logger } from 'C:/Users/Jayakumar/E2E_Playwright_UI_API/src/utils/logger';
 import { waitForElement, safeClick, captureFullScreenshot } from 'C:/Users/Jayakumar/E2E_Playwright_UI_API/src/utils/test-helpers';
 
-test.describe('Inventory Page Regression Tests - Blog Adaptation', () => {
+test.describe('Inventory Page Regression Tests - Blog Adaptation', { tags: ['regression', 'blog'] }, () => {
   test.beforeEach(async ({ page }) => {
     // Login before each test
     const loginPage = new LoginPage(page);
@@ -21,7 +21,7 @@ test.describe('Inventory Page Regression Tests - Blog Adaptation', () => {
     await loginPage.verifyLoginSuccess();
   });
 
-  test('TC-101: Verify inventory page loads correctly', async ({ page }) => {
+  test('TC-101: Verify inventory page loads correctly', { tags: ['regression', 'blog', 'smoke'] }, async ({ page }) => {
     logger.testStart('TC-101: Verify inventory page loads', test.info());
 
     // Blog site: navigate to automation form page (equivalent to inventory)
@@ -34,7 +34,7 @@ test.describe('Inventory Page Regression Tests - Blog Adaptation', () => {
     logger.testEnd('TC-101: Verify inventory page loads', test.info(), 'pass');
   });
 
-  test('TC-102: Add product to cart and verify', async ({ page }) => {
+  test('TC-102: Add product to cart and verify', { tags: ['regression', 'blog', 'cart'] }, async ({ page }) => {
     logger.testStart('TC-102: Add product to cart', test.info());
 
     // Blog doesn't have traditional cart, verify we're on form page
@@ -52,7 +52,7 @@ test.describe('Inventory Page Regression Tests - Blog Adaptation', () => {
     logger.testEnd('TC-102: Add product to cart', test.info(), 'pass');
   });
 
-  test('TC-103: Remove product from cart', async ({ page }) => {
+  test('TC-103: Remove product from cart', { tags: ['regression', 'blog', 'cart'] }, async ({ page }) => {
     logger.testStart('TC-103: Remove product from cart', test.info());
 
     // Blog doesn't have traditional cart functionality
@@ -66,7 +66,7 @@ test.describe('Inventory Page Regression Tests - Blog Adaptation', () => {
     logger.testEnd('TC-103: Remove product from cart', test.info(), 'pass');
   });
 
-  test('TC-104: Verify product prices match API', async () => {
+  test('TC-104: Verify product prices match API', { tags: ['regression', 'blog', 'api'] }, async () => {
     logger.testStart('TC-104: Verify product prices match API', test.info());
 
     // Blog site doesn't have traditional API - get products from API endpoint
@@ -93,7 +93,7 @@ test.describe('Inventory Page Regression Tests - Blog Adaptation', () => {
     logger.testEnd('TC-104: Verify product prices match API', test.info(), 'pass');
   });
 
-  test('TC-105: Performance check - page load under 2s', async ({ page }, testInfo) => {
+  test('TC-105: Performance check - page load under 2s', { tags: ['regression', 'blog', 'performance'] }, async ({ page }, testInfo) => {
     logger.testStart('TC-105: Performance check - page load', testInfo);
 
     const startTime = Date.now();
@@ -118,7 +118,7 @@ test.describe('Inventory Page Regression Tests - Blog Adaptation', () => {
     logger.testEnd('TC-105: Performance check - page load', testInfo, 'pass');
   });
 
-  test('TC-106: Cross-browser verification - verify title', async ({ page }) => {
+  test('TC-106: Cross-browser verification - verify title', { tags: ['regression', 'blog', 'cross-browser'] }, async ({ page }) => {
     logger.testStart('TC-106: Cross-browser verification', test.info());
 
     await page.goto('/2019/01/automation_form.html');

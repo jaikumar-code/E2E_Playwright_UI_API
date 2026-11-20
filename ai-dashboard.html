@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E2E Playwright UI API - AI Dashboard</title>
+  <link rel="stylesheet" href="https://unpkg.com/modern-normalize/modern-normalize.css">
+  <style>
+    :root {
+      --surface-light: #f8f9fa;
+      --surface-dark: #212529;
+      --surface-medium: #343a40;
+      --ink-primary: #212529;
+      --ink-secondary: #6c757d;
+      --muted: #868e96;
+      --border: #dee2e6;
+      --border-focus: #86efac;
+      --warning: #f39c12;
+      --critical: #e74c3c;
+      --good: #2ecc71;
+    }
+
+    [data-theme="dark"] {
+      --surface-light: #212529;
+      --surface-dark: #f8f9fa;
+      --surface-medium: #343a40;
+      --ink-primary: #f8f9fa;
+      --ink-secondary: #6c757d;
+      --muted: #868e96;
+      --border: #343a40;
+      --border-focus: #2ecc71;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--surface-light);
+      color: var(--ink-primary);
+      margin: 0;
+      padding: 20px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    [data-theme="dark"] body {
+      background: var(--surface-dark);
+      color: var(--ink-primary);
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 8px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    p { margin: 0; }
+
+    .dashboard {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    [data-theme="dark"] .card {
+      background: var(--surface-medium);
+      color: var(--ink-primary);
+    }
+
+    .card h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    [data-theme="dark"] .card h3 { color: var(--muted); border-color: var(--border); }
+
+    .stat-tile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--surface-light);
+      border-radius: 6px;
+      margin: 8px 0;
+      transition: background 0.2s;
+    }
+
+    [data-theme="dark"] .stat-tile { background: var(--surface-medium); }
+
+    .stat-tile:hover { background: var(--border-focus); }
+
+    .stat-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    .status-good { color: var(--good); }
+    .status-warning { color: var(--warning); }
+    .status-critical { color: var(--critical); }
+
+    .chart-wrapper {
+      background: var(--surface-light);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    [data-theme="dark"] .chart-wrapper { background: var(--surface-medium); }
+
+    .legend {
+      display: flex;
+      gap: 16px;
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #007acc;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover { background: #005999; }
+
+    .btn-secondary {
+      background: #6c757d;
+    }
+
+    .btn-secondary:hover { background: #5a6268; }
+
+    .no-data {
+      color: var(--muted);
+      padding: 40px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="dashboard" class="dashboard">
+    <h1>E2E Playwright UI API - AI Dashboard</h1>
+    <p style="color: var(--muted); margin-bottom: 24px;">Test Generation Analytics & Review Status</p>
+
+    <div class="grid">
+
+      <!-- Summary Stats Card -->
+      <div class="card">
+        <h3>Pipeline Summary</h3>
+        <div id="summary-stats" class="stat-tile">
+          <div>
+            <div class="stat-label">Total Tests</div>
+            <div class="stat-value" id="total-tests">—</div>
+          </div>
+          <div>
+            <div class="stat-label">Promoted</div>
+            <div class="stat-value status-good" id="promoted-count">—</div>
+          </div>
+          <div>
+            <div class="stat-label">Under Review</div>
+            <div class="stat-value status-warning" id="underreview-count">—</div>
+          </div>
+          <div>
+            <div class="stat-label">Rejected</div>
+            <div class="stat-value status-critical" id="rejected-count">—</div>
+          </div>
+        </div>
+        <div style="margin-top: 12px;">
+          <div class="legend">
+            <span class="legend-dot status-good"></span>
+            <span>Promoted</span>
+            <span class="legend-dot status-warning"></span>
+            <span>Under Review</span>
+            <span class="legend-dot status-critical"></span>
+            <span>Rejected</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confidence Scores Card -->
+      <div class="card">
+        <h3>Confidence Score Distribution</h3>
+        <div id="confidence-chart" class="chart-wrapper">
+          <div class="no-data">Load test results to generate chart</div>
+        </div>
+        <div style="margin-top: 12px; text-align: right;">
+          <button class="btn btn-secondary" onclick="loadSampleData()">Load Sample Data</button>
+        </div>
+      </div>
+
+      <!-- Promotion Rate Card -->
+      <div class="card">
+        <h3>Promotion Rate</h3>
+        <div id="promotion-rate" class="stat-tile">
+          <div>
+            <div class="stat-label">Overall Rate</div>
+            <div class="stat-value" id="promotion-rate-value">—</div>
+          </div>
+          <div>
+            <div class="stat-label">Threshold</div>
+            <div class="stat-value" id="review-threshold">0.7</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sources Used Card -->
+      <div class="card">
+        <h3>Knowledge Sources</h3>
+        <div id="sources-chart" class="chart-wrapper">
+          <div class="no-data">Load test results to generate chart</div>
+        </div>
+      </div>
+
+      <!-- Detailed Results Card -->
+      <div class="card">
+        <h3>Detailed Results</h3>
+        <div id="detailed-results" class="chart-wrapper" style="height: 300px;">
+          <div class="no-data">Load test results to generate details</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sample data representing RAG pipeline results
+    // In production, this would come from the CI/CD pipeline
+    const sampleResults = [
+      {
+        testId: '20261120-001',
+        requirementId: 'LOGIN-REQ-001',
+        testCaseId: 'TC-001',
+        confidenceScore: 0.92,
+        status: 'promoted',
+        autoApproved: true,
+        reviewStatus: 'approved',
+        sourcesUsed: ['LOGIN-REQ-001', 'TC-001'],
+      },
+      {
+        testId: '20261120-002',
+        requirementId: 'LOGIN-REQ-002',
+        testCaseId: 'TC-002',
+        confidenceScore: 0.85,
+        status: 'promoted',
+        autoApproved: true,
+        reviewStatus: 'approved',
+        sourcesUsed: ['LOGIN-REQ-002', 'TC-002'],
+      },
+      {
+        testId: '20261120-003',
+        requirementId: 'LOGIN-REQ-003',
+        testCaseId: 'TC-003',
+        confidenceScore: 0.67,
+        status: 'under-review',
+        autoApproved: false,
+        reviewStatus: 'pending',
+        sourcesUsed: ['LOGIN-REQ-003'],
+      },
+      {
+        testId: '20261120-004',
+        requirementId: 'LOGIN-REQ-001',
+        testCaseId: 'TC-001',
+        confidenceScore: 0.45,
+        status: 'rejected',
+        autoApproved: false,
+        reviewStatus: 'rejected',
+        sourcesUsed: ['LOGIN-REQ-001'],
+      },
+      {
+        testId: '20261120-005',
+        requirementId: 'INV-REQ-001',
+        testCaseId: 'TC-101',
+        confidenceScore: 0.88,
+        status: 'promoted',
+        autoApproved: true,
+        reviewStatus: 'approved',
+        sourcesUsed: ['INV-REQ-001', 'TC-101'],
+      },
+      {
+        testId: '20261120-006',
+        requirementId: 'INV-REQ-002',
+        testCaseId: 'TC-102',
+        confidenceScore: 0.73,
+        status: 'under-review',
+        autoApproved: false,
+        reviewStatus: 'pending',
+        sourcesUsed: ['INV-REQ-002'],
+      },
+      {
+        testId: '20261120-007',
+        requirementId: 'ACC-REQ-001',
+        testCaseId: 'TC-001',
+        confidenceScore: 0.91,
+        status: 'promoted',
+        autoApproved: true,
+        reviewStatus: 'approved',
+        sourcesUsed: ['ACC-REQ-001', 'TC-001'],
+      },
+      {
+        testId: '20261120-008',
+        requirementId: 'PERF-REQ-001',
+        testCaseId: 'PERF-001',
+        confidenceScore: 0.55,
+        status: 'rejected',
+        autoApproved: false,
+        reviewStatus: 'rejected',
+        sourcesUsed: [],
+      },
+    ];
+
+    // Initialize dashboard
+    let currentResults = [];
+
+    // Render summary stats
+    function renderSummaryStats(results) {
+      const total = results.length;
+      const promoted = results.filter(r => r.status === 'promoted').length;
+      const underReview = results.filter(r => r.status === 'under-review').length;
+      const rejected = results.filter(r => r.status === 'rejected').length;
+      const promotionRate = total > 0 ? (promoted / total * 100).toFixed(1) : 0;
+
+      document.getElementById('total-tests').textContent = total;
+      document.getElementById('promoted-count').textContent = promoted;
+      document.getElementById('underreview-count').textContent = underReview;
+      document.getElementById('rejected-count').textContent = rejected;
+      document.getElementById('promotion-rate-value').textContent = promotionRate + '%';
+
+      // Update progress bar width
+      const rateBar = document.querySelector('#promotion-rate .stat-tile');
+      if (rateBar) {
+        rateBar.style.width = promotionRate + '%';
+      }
+    }
+
+    // Render confidence score distribution as histogram
+    function renderConfidenceChart(results) {
+      const container = document.getElementById('confidence-chart');
+      if (!results || results.length === 0) {
+        container.innerHTML = '<div class="no-data">Load test results to generate chart</div>';
+        return;
+      }
+
+      // Bin confidence scores into ranges
+      const bins = { '0.0-0.2': 0, '0.2-0.4': 0, '0.4-0.6': 0, '0.6-0.8': 0, '0.8-1.0': 0 };
+      results.forEach(r => {
+        if (r.confidenceScore < 0.2) bins['0.0-0.2']++;
+        else if (r.confidenceScore < 0.4) bins['0.2-0.4']++;
+        else if (r.confidenceScore < 0.6) bins['0.4-0.6']++;
+        else if (r.confidenceScore < 0.8) bins['0.6-0.8']++;
+        else bins['0.8-1.0']++;
+      });
+
+      const colors = ['#e74c3c', '#f39c12', '#f1c40f', '#2ecc71', '#27ae60'];
+      let html = '<div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; font-size: 12px;">';
+
+      Object.entries(bins).forEach(([range, count], i) => {
+        const pct = (count / results.length * 100).toFixed(1);
+        html += `
+          <div style="background: ${colors[i]}; color: white; padding: 8px; border-radius: 4px; text-align: center;">
+            ${range}: ${count} (${pct}%)
+          </div>
+        `;
+      });
+
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    // Render sources used chart
+    function renderSourcesChart(results) {
+      const container = document.getElementById('sources-chart');
+      if (!results || results.length === 0) {
+        container.innerHTML = '<div class="no-data">Load test results to generate chart</div>';
+        return;
+      }
+
+      // Count source usage
+      const sourceCounts = {};
+      results.forEach(r => {
+        r.sourcesUsed.forEach(s => {
+          sourceCounts[s] = (sourceCounts[s] || 0) + 1;
+        });
+      });
+
+      // Sort by count descending
+      const sorted = Object.entries(sourceCounts).sort((a, b) => b[1] - a[1]);
+
+      let html = '<div style="font-size: 13px;">';
+      sorted.slice(0, 8).forEach(([source, count]) => {
+        const pct = (count / results.length * 100).toFixed(1);
+        html += `
+          <div style="display: flex; justify-content: space-between; margin: 4px 0;">
+            <span>${source}</span>
+            <span>${count}/${results.length} (${pct}%)</span>
+          </div>
+        `;
+      });
+      html += '</div>';
+
+      container.innerHTML = html;
+    }
+
+    // Render detailed results table
+    function renderDetailedResults(results) {
+      const container = document.getElementById('detailed-results');
+      if (!results || results.length === 0) {
+        container.innerHTML = '<div class="no-data">Load test results to generate details</div>';
+        return;
+      }
+
+      let html = `
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+          <thead>
+            <tr style="background: var(--surface-light); color: var(--ink-primary);">
+              <th style="padding: 8px; text-align: left; border: 1px solid var(--border);">Test ID</th>
+              <th style="padding: 8px; text-align: left; border: 1px solid var(--border);">Req ID</th>
+              <th style="padding: 8px; text-align: left; border: 1px solid var(--border);">Test Case</th>
+              <th style="padding: 8px; text-align: center; border: 1px solid var(--border);">Confidence</th>
+              <th style="padding: 8px; text-align: center; border: 1px solid var(--border);">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      results.forEach(r => {
+        const statusClass = r.status === 'promoted' ? 'status-good' : r.status === 'under-review' ? 'status-warning' : 'status-critical';
+        html += `
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 8px; text-align: left; border: 1px solid var(--border);">${r.testId}</td>
+            <td style="padding: 8px; text-align: left; border: 1px solid var(--border);">${r.requirementId}</td>
+            <td style="padding: 8px; text-align: left; border: 1px solid var(--border);">${r.testCaseId}</td>
+            <td style="padding: 8px; text-align: center; border: 1px solid var(--border);">${r.confidenceScore.toFixed(2)}</td>
+            <td style="padding: 8px; text-align: center; border: 1px solid var(--border);"><span class="${statusClass}">${r.status}</span></td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+    }
+
+    // Load sample data
+    function loadSampleData() {
+      currentResults = sampleResults;
+      renderSummaryStats(currentResults);
+      renderConfidenceChart(currentResults);
+      renderSourcesChart(currentResults);
+      renderDetailedResults(currentResults);
+    }
+
+    // Theme toggle
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    function applyTheme() {
+      if (prefersDarkScheme.matches || document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+        document.querySelectorAll('.card').forEach(card => {
+          card.setAttribute('data-theme', 'dark');
+        });
+      } else {
+        document.body.removeAttribute('data-theme');
+        document.querySelectorAll('.card').forEach(card => {
+          card.removeAttribute('data-theme');
+        });
+      }
+    }
+
+    // Initial load
+    applyTheme();
+    loadSampleData();
+
+    // Listen for color scheme changes
+    prefersDarkScheme.addEventListener('change', applyTheme);
+  </script>
+</body>
+</html>

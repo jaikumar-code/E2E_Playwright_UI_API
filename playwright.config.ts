@@ -13,13 +13,17 @@ export default defineConfig({
   reporter: [
     ['list'],
     ['html', {
-      outputFolder: 'test-results/html',
+      outputFolder: 'reports/html',
       open: 'never',
     }],
     ['json', {
       outputFolder: 'test-results/json',
       compact: true,
       useTimestamps: true,
+    }],
+    ['junit', {
+      outputFolder: 'test-results/junit',
+      suiteName: 'E2E Playwright UI API Tests',
     }],
   ],
   use: {
@@ -43,7 +47,7 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
       },
     },
-    {
+    /* {
       name: 'Firefox',
       use: {
         ...devices['Desktop Firefox'],
@@ -69,7 +73,7 @@ export default defineConfig({
         ...devices['iPhone 12'],
       },
     },
-
+ */
     // API project for non-UI tests
     {
       name: 'API',

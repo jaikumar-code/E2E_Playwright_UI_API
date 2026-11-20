@@ -7,7 +7,15 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "playwright test",
+    "test:smoke": "playwright test smoke",
+    "test:api": "playwright test api",
+    "test:ui": "playwright test --project=Chromium",
+    "test:debug": "playwright test --debug",
+    "test:performance": "playwright test performance",
+    "test:regression": "playwright test regression",
+    "test:accessibility": "playwright test accessibility",
+    "test:all": "playwright test"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +30,7 @@
     "typescript": "^7.0.2"
   },
   "dependencies": {
-    "anthropic": "^0.0.0"
+    "anthropic": "^0.0.0",
+    "xml2js": "^0.6.2"
   }
 }

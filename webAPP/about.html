@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About the Framework</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg-subtle: #12121a;
+      --fg: #e8e8f0;
+      --muted: #6b6b80;
+      --accent: #00d4aa;
+      --card: #161620;
+      --border: #2a2a3a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 { font-family: 'Space Grotesk', sans-serif; }
+
+    a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: #00f5c4; }
+
+    img { max-width: 100%; border: 0; }
+
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    .section { margin-bottom: 80px; }
+    .section-title {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-description {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 32px;
+      color: var(--muted);
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    /* Framework Phases */
+    .phases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .phase-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 24px;
+      transition: border-color 0.2s;
+    }
+
+    .phase-card:hover { border-color: var(--accent); }
+
+    .phase-number {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-dim);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .phase-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+    .phase-card p { color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+    /* Key Features */
+    .features-list {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 24px;
+    }
+
+    .features-list h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--fg);
+    }
+
+    .features-list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .features-list li {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .features-list li:last-child { border-bottom: none; }
+
+    /* Technical Details */
+    .tech-specs {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 24px;
+      overflow-x: auto;
+    }
+
+    .tech-specs table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .tech-specs th {
+      background: var(--bg-subtle);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 16px 8px;
+      text-align: left;
+    }
+
+    .tech-specs td {
+      color: var(--fg);
+      font-size: 13px;
+      padding: 16px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tech-specs tr:nth-child(even) td {
+      background: var(--bg-subtle);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .section-title { font-size: 24px; }
+      .tech-specs th, .tech-specs td { padding: 12px 6px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background -->
+  <style>
+    .bg-pattern { position: fixed; inset: 0; background-image: linear-gradient(rgba(0,212,170,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,170,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+    .gradient-overlay { position: fixed; inset: 0; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,212,170,0.1), transparent), radial-gradient(ellipse 60% 40% at 100% 100%, rgba(0,100,200,0.08), transparent); pointer-events: none; z-index: 0; }
+  </style>
+  <div class="bg-pattern"></div>
+  <div class="gradient-overlay"></div>
+
+  <!-- Main -->
+  <div class="main">
+    <!-- Back Link -->
+    <a href="index.html" class="back-link">← Back to Home</a>
+
+    <!-- Header -->
+    <section class="section">
+      <h2 class="section-title">About This Framework</h2>
+      <p class="section-description">A comprehensive E2E test automation framework combining Playwright, TypeScript, and AI/RAG integration for enterprise-grade testing.</p>
+    </section>
+
+    <!-- Framework Overview -->
+    <section class="section">
+      <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px;">Vision</h3>
+      <p>To empower QA teams and developers to create high-quality E2E tests 70% faster through AI-assisted generation while maintaining rigorous quality gates and human review workflows.</p>
+    </section>
+
+    <!-- 5 Phases -->
+    <section class="section">
+      <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px;">The 5-Phase Implementation</h3>
+
+      <div class="phases-grid">
+        <div class="phase-card">
+          <div class="phase-number">1</div>
+          <h3>Phase 1: Foundation</h3>
+          <p>Knowledge base structure, requirements documents, test case catalogs, defect patterns, and AI configuration.</p>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-number">2</div>
+          <h3>Phase 2: AI Service</h3>
+          <p>Anthropic Claude setup, RAG pipeline, 5-factor confidence scoring, test generation patterns.</p>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-number">3</div>
+          <h3>Phase 3: Test Generation</p>
+          <p>Generate tests from requirements, test cases, documents. Annotation helpers for traceability.</p>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-number">4</div>
+          <h3>Phase 4: Human Review</h3>
+          <p>Confidence-based gating, review workflow, annotation system, approval flow with thresholds.</p>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-number">5</div>
+          <h3>Phase 5: CI/CD Integration</h3>
+          <p>Confidence gates, artifact tracking, summary reports, pipeline integration, promotion/review/reject logic.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="section" style="background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 40px;">
+      <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px;">Key Features</h3>
+      <div class="features-list">
+        <h3>Included Features</h3>
+        <ul>
+          <li><strong>AI/RAG Pipeline:</strong> Full 5-phase pipeline with Anthropic Claude integration</li>
+          <li><strong>Confidence Scoring:</strong> 5-factor quality assessment (0.0-1.0)</li>
+          <li><strong>Human Review:</strong> Confidence-thresholded approval/review/reject workflow</li>
+          <li><strong>CI/CD Ready:</strong> GitHub Actions and Jenkins pipeline templates</li>
+          <li><strong>Playwright Support:</strong> 6 project configurations (Chromium, Firefox, WebKit, mobile, API)</li>
+          <li><strong>Page Object Model:</strong> Maintainable UI test architecture</li>
+          <li><strong>Typed API Clients:</strong> Full response validation and contract checking</li>
+          <li><strong>5 Reporters:</strong> HTML, JSON, JUnit, Allure (free), list</li>
+          <li><strong>Performance Baselines:</strong> Built-in load time and API response monitoring</li>
+          <li><strong>Accessibility:</strong> Axe-core integration with violation detection</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Technical Specifications -->
+    <section class="section">
+      <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px;">Technical Specifications</h3>
+      <div class="tech-specs">
+        <table>
+          <thead>
+            <tr>
+              <th>Specification</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Framework Type</td>
+              <td>E2E Test Automation with AI/RAG Integration</td>
+            </tr>
+            <tr>
+              <td>Language</td>
+              <td>TypeScript</td>
+            </tr>
+            <tr>
+              <td>Test Runner</td>
+              <td>Playwright @^1.65.0</td>
+            </tr>
+            <tr>
+              <td>AI Provider</td>
+              <td>Anthropic Claude (omniroute-free model)</td>
+            </tr>
+            <tr>
+              <td>Confidence Scoring</td>
+              <td>5-factor, 0.0-1.0 scale</td>
+            </tr>
+            <tr>
+              <td>Browser Projects</td>
+              <td>6 (Chromium, Firefox, WebKit, Pixel 2 XL, iPhone 12, API)</td>
+            </tr>
+            <tr>
+              <td>Reporters</td>
+              <td>5 simultaneous (HTML, JSON, JUnit, Allure, list)</td>
+            </tr>
+            <tr>
+              <td>License</td>
+              <td>MIT</td>
+            </tr>
+            <tr>
+              <td>Last Updated</td>
+              <td>November 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Playwright AI Test Automation Framework • Version 1.0.0 • November 2026</p>
+      <p><a href="index.html">Back to Home</a> • <a href="#">Documentation</a></p>
+    </footer>
+  </div>
+
+  <script>
+    // Check for reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (prefersReducedMotion.matches) {
+      document.documentElement.style.setProperty('--transition-fast', '0s');
+    }
+  </script>
+</body>
+</html>

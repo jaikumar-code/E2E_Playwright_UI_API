@@ -3,7 +3,7 @@
  * Lightweight performance testing in the pipeline
  */
 import { test, expect } from '@playwright/test';
-import { logger } from '../src/utils/logger';
+import { logger } from 'C:/Users/Jayakumar/E2E_Playwright_UI_API/src/utils/logger';
 
 test.describe('Performance Tests', () => {
   // Performance baselines configuration

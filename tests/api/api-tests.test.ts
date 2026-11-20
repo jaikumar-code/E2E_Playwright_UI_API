@@ -5,8 +5,8 @@
  * so these tests use the JSON endpoint if available or mock data
  */
 import { test, expect } from '@playwright/test';
-import { apiClient, APIResponse } from './api-clients/base';
-import { testUsers, sampleProducts } from './test-data/users';
+import { apiClient, APIResponse } from 'C:/Users/Jayakumar/E2E_Playwright_UI_API/src/api-clients/base';
+import { testUsers, sampleProducts } from 'C:/Users/Jayakumar/E2E_Playwright_UI_API/src/test-data/users';
 
 test.describe('API Tests', () => {
   test('API-001: GET inventory products endpoint', async () => {

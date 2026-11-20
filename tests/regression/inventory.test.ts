@@ -9,7 +9,7 @@ import { LoginPage } from '../../src/page-objects/login';
 import { logger } from '../../src/utils/logger';
 import { waitForElement, safeClick, captureFullScreenshot } from '../../src/utils/test-helpers';
 
-test.describe('Inventory Page Regression Tests', () => {
+test.describe('Inventory Page Regression Tests', { tags: ['regression', 'inventory'] }, () => {
   test.beforeEach(async ({ page }) => {
     // Login before each test
     const loginPage = new LoginPage(page);
@@ -21,7 +21,7 @@ test.describe('Inventory Page Regression Tests', () => {
     await loginPage.verifyLoginSuccess();
   });
 
-  test('TC-101: Verify inventory page loads correctly', async ({ page }) => {
+  test('TC-101: Verify inventory page loads correctly', { tags: ['regression', 'inventory', 'smoke'] }, async ({ page }) => {
     logger.testStart('TC-101: Verify inventory page loads', test.info());
 
     await expect(page.locator('span.title')).toHaveText('Products');
@@ -30,7 +30,7 @@ test.describe('Inventory Page Regression Tests', () => {
     logger.testEnd('TC-101: Verify inventory page loads', test.info(), 'pass');
   });
 
-  test('TC-102: Add product to cart and verify', async ({ page }) => {
+  test('TC-102: Add product to cart and verify', { tags: ['regression', 'inventory', 'cart'] }, async ({ page }) => {
     logger.testStart('TC-102: Add product to cart', test.info());
 
     // Add first product (Backpack) to cart
@@ -46,7 +46,7 @@ test.describe('Inventory Page Regression Tests', () => {
     logger.testEnd('TC-102: Add product to cart', test.info(), 'pass');
   });
 
-  test('TC-103: Remove product from cart', async ({ page }) => {
+  test('TC-103: Remove product from cart', { tags: ['regression', 'inventory', 'cart'] }, async ({ page }) => {
     logger.testStart('TC-103: Remove product from cart', test.info());
 
     // Remove the item
@@ -56,7 +56,7 @@ test.describe('Inventory Page Regression Tests', () => {
     logger.testEnd('TC-103: Remove product from cart', test.info(), 'pass');
   });
 
-  test('TC-104: Verify product prices match API', async () => {
+  test('TC-104: Verify product prices match API', { tags: ['regression', 'inventory', 'api'] }, async () => {
     logger.testStart('TC-104: Verify product prices match API', test.info());
 
     // Get products from API
@@ -80,7 +80,7 @@ test.describe('Inventory Page Regression Tests', () => {
     logger.testEnd('TC-104: Verify product prices match API', test.info(), 'pass');
   });
 
-  test('TC-105: Performance check - page load under 2s', async ({ page }, testInfo) => {
+  test('TC-105: Performance check - page load under 2s', { tags: ['regression', 'inventory', 'performance'] }, async ({ page }, testInfo) => {
     logger.testStart('TC-105: Performance check - page load', testInfo);
 
     const startTime = Date.now();
@@ -104,7 +104,7 @@ test.describe('Inventory Page Regression Tests', () => {
     logger.testEnd('TC-105: Performance check - page load', testInfo, 'pass');
   });
 
-  test('TC-106: Cross-browser verification - Chrome only', async ({ browser }) => {
+  test('TC-106: Cross-browser verification - Chrome only', { tags: ['regression', 'inventory', 'cross-browser'] }, async ({ browser }) => {
     logger.testStart('TC-106: Cross-browser verification', test.info());
 
     const context = await browser.newContext();

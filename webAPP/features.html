@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features - Playwright AI Framework</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg-subtle: #12121a;
+      --fg: #e8e8f0;
+      --muted: #6b6b80;
+      --accent: #00d4aa;
+      --accent-dim: rgba(0, 212, 170, 0.15);
+      --card: #161620;
+      --border: #2a2a3a;
+      --error: #ff4757;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 { font-family: 'Space Grotesk', sans-serif; }
+
+    a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: #00f5c4; }
+
+    img { max-width: 100%; border: 0; }
+
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    .section { margin-bottom: 80px; }
+    .section-title {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-description {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 32px;
+      color: var(--muted);
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    /* Value Proposition Cards */
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-top: 40px;
+    }
+
+    .value-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 32px;
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative;
+    }
+
+    .value-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .value-card .tag {
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .value-card h3 {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 24px 0 12px;
+    }
+
+    .value-card p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .value-card .icon {
+      width: 64px;
+      height: 64px;
+      background: var(--accent-dim);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin: 0 auto 24px;
+    }
+
+    /* Feature highlight boxes */
+    .highlight-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+
+    .highlight-box h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .highlight-box p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--accent), #0088a0);
+      border-radius: 20px;
+      padding: 60px 40px;
+      text-align: center;
+      margin: 60px 0;
+    }
+
+    .cta-section h2 {
+      color: var(--bg);
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      color: rgba(255,255,255,0.8);
+      font-size: 16px;
+      margin-bottom: 32px;
+    }
+
+    .cta-section .btn {
+      display: inline-block;
+      padding: 16px 48px;
+      background: var(--bg);
+      color: var(--accent);
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 30px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: transform 0.2s;
+    }
+
+    .cta-section .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .section-title { font-size: 24px; }
+      .value-grid { grid-template-columns: 1fr; }
+      .cta-section h2 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background -->
+  <style>
+    .bg-pattern { position: fixed; inset: 0; background-image: linear-gradient(rgba(0,212,170,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,170,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+    .gradient-overlay { position: fixed; inset: 0; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,212,170,0.1), transparent), radial-gradient(ellipse 60% 40% at 100% 100%, rgba(0,100,200,0.08), transparent); pointer-events: none; z-index: 0; }
+  </style>
+  <div class="bg-pattern"></div>
+  <div class="gradient-overlay"></div>
+
+  <!-- Main -->
+  <div class="main">
+    <!-- Back Link -->
+    <a href="index.html" class="back-link">← Back to Home</a>
+
+    <!-- Header -->
+    <section class="section">
+      <h2 class="section-title">Framework Value Propositions</h2>
+      <p class="section-description">Six core reasons enterprises choose this Playwright AI Test Automation Framework.</p>
+    </section>
+
+    <!-- Value Propositions -->
+    <section class="section">
+      <div class="value-grid">
+
+        <!-- AI Test Generation -->
+        <div class="value-card">
+          <span class="tag">AI-Assisted</span>
+          <div class="icon">🤖</div>
+          <h3>AI-Assisted Test Generation</h3>
+          <p>Generate E2E tests from natural language requirements using Anthropic Claude AI. Reduce test creation time by 70% while maintaining quality through intelligent code generation.</p>
+        </div>
+
+        <!-- Confidence Scoring -->
+        <div class="value-card">
+          <span class="tag">Confidence Scoring</span>
+          <div class="icon">📊</div>
+          <h3>5-Factor Confidence Scoring</h3>
+          <p>Source referencing, knowledge utilization, risky pattern detection, code completeness, and knowledge availability scoring with auto-approve/review/reject gates at 0.8/0.6/0.6 thresholds.</p>
+        </div>
+
+        <!-- Human Review -->
+        <div class="value-card">
+          <span class="tag">Human Review</span>
+          <div class="icon">👥</div>
+          <h3>Human Review Workflow</h3>
+          <p>Confidence-thresholded approval/review/reject workflow with annotation system. Reviewers can boost or lower confidence scores with detailed reasons and recommendations.</p>
+        </div>
+
+        <!-- CI/CD Integration -->
+        <div class="value-card">
+          <span class="tag">CI/CD Ready</span>
+          <div class="icon">🔄</div>
+          <h3>CI/CD Integration</h3>
+          <p>Ready-to-use GitHub Actions and Jenkins pipeline templates with confidence gates, artifact tracking, summary reports, and three-tier promotion/review/reject logic.</p>
+        </div>
+
+        <!-- Full Browser Support -->
+        <div class="value-card">
+          <span class="tag">Multi-Browser</span>
+          <div class="icon">🧪</div>
+          <h3>Full Browser Support</h3>
+          <p>Chromium, Firefox, WebKit, mobile emulation (Pixel 2 XL, iPhone 12), and API project configurations out of the box. Run tests across 6 different environments.</p>
+        </div>
+
+        <!-- Reporting -->
+        <div class="value-card">
+          <span class="tag">5 Reporters</span>
+          <div class="icon">📊</div>
+          <h3>5 Reporter System</h3>
+          <p>HTML, JSON, JUnit, Allure (free open-source), and list reporters running simultaneously. Allure reports open automatically in browser. All core features are free — no paid tier required.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Highlight Section -->
+    <section class="section" style="background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 40px;">
+      <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px;">Why This Framework Over Others?</h3>
+
+      <div class="highlight-box">
+        <h4>🎯 Quality Gates, Not Just Generation</h4>
+        <p>Most AI test generation tools stop at code creation. This framework includes 5-factor confidence scoring and automatic CI/CD gating — ensuring only high-quality tests reach production.</p>
+      </div>
+
+      <div class="highlight-box">
+        <h4>🔒 MIT License, No Vendor Lock-in</h4>
+        <p>Unlike SaaS test generation tools that lock you into their platform, this framework is MIT-licensed. Own the code, modify it, host it wherever you want.</p>
+      </div>
+
+      <div class="highlight-box">
+        <h4>📈 Time Savings, Not Just Hype</h4>
+        <p>Real measurable impact: teams report 60-70% reduction in test creation time. Generate 10 tests in the time it used to take to write 1 manually with guaranteed quality.</p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2>Ready to Accelerate Your Testing?</h2>
+      <p>Get the framework and start generating tests from your requirements in minutes.</p>
+      <button class="btn">Get Started Free</button>
+    </section>
+  </div>
+
+  <script>
+    // Check for reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (prefersReducedMotion.matches) {
+      document.documentElement.style.setProperty('--transition-fast', '0s');
+    }
+  </script>
+</body>
+</html>
